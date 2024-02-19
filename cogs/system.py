@@ -8,7 +8,7 @@ from datetime import datetime as dt
 from datetime import timedelta as td
 import os
 from constants import TEMP_FOLDER, Channels
-from scripts import scanner
+from scripts.scanner import Scanner
 import logging
 
 
@@ -71,6 +71,10 @@ class SystemCog(commands.Cog):
     @commands.command(help="Scan Image")
     async def scanImage(self, ctx, dpi=300, filename="scanned_image.jpg"):
         await ctx.send("Scanning Image...")
+        scanner = Scanner()
+        if not scanner.available:
+            await ctx.send("Scanner Offline")
+            return
         if not filename.endswith("jpg"):
             filename += ".jpg"
         filepath = os.path.join(TEMP_FOLDER, filename)
@@ -83,6 +87,10 @@ class SystemCog(commands.Cog):
     @commands.command(help="Scan PDF")
     async def scanPDF(self, ctx, dpi=300, filename="scanned_document.pdf"):
         await ctx.send("Scanning PDF...")
+        scanner = Scanner()
+        if not scanner.available:
+            await ctx.send("Scanner Offline")
+            return
         if not filename.endswith("pdf"):
             filename += ".pdf"
         filepath = os.path.join(TEMP_FOLDER, filename)
