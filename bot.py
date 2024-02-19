@@ -5,7 +5,9 @@ import cogs
 import click
 from constants import BASE_FOLDER, TEMP_FOLDER
 import utils
+from dotenv import load_dotenv
 
+load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
 if not token:
     print("Discord Token not found!")
