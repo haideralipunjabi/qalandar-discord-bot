@@ -2,13 +2,14 @@ from discord.ext import commands
 
 from constants import Channels
 from scripts import viral
+import logging
 
 
 class SocialCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
-        print("Started SocialCog")
+        logging.info("Started SocialCog")
 
     async def cog_check(self, ctx):
         return ctx.channel.id == Channels.RANDOM

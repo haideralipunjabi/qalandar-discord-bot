@@ -3,13 +3,14 @@ from discord.ext import commands
 from constants import Channels
 from scripts.calendar_gen import generate_pdf
 from datetime import datetime as dt
+import logging
 
 
 class CalendarCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
-        print("Started CalendarCog")
+        logging.info("Started CalendarCog")
 
     async def cog_check(self, ctx):
         return ctx.channel.id == Channels.PI_HOME_SERVER

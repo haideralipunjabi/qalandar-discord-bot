@@ -6,17 +6,18 @@ import click
 from constants import BASE_FOLDER, TEMP_FOLDER
 import utils
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
 if not token:
-    print("Discord Token not found!")
+    logging.error("Discord Token not found!")
     exit()
 
-print(f"Base Folder: {BASE_FOLDER}")
+logging.info(f"Base Folder: {BASE_FOLDER}")
 
 if not os.path.exists(TEMP_FOLDER):
-    print(f"Creating temp folder at: {TEMP_FOLDER}")
+    logging.info(f"Creating temp folder at: {TEMP_FOLDER}")
     os.mkdir(TEMP_FOLDER)
 
 

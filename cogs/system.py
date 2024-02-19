@@ -9,6 +9,7 @@ from datetime import timedelta as td
 import os
 from constants import TEMP_FOLDER, Channels
 from scripts import scanner
+import logging
 
 
 def format_seconds(delta):
@@ -47,7 +48,7 @@ class SystemCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
-        print("Started SystemCog")
+        logging.info("Started SystemCog")
 
     async def cog_check(self, ctx):
         return ctx.channel.id == Channels.PI_HOME_SERVER
