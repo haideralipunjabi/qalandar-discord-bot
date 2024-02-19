@@ -1,0 +1,11 @@
+import os
+
+
+class Channels:
+    PI_HOME_SERVER = 848576666812809236
+    RANDOM = 934722331035709480
+    TESTING = 1000382952015929434
+
+
+BASE_FOLDER = os.getcwd()
+TEMP_FOLDER = os.path.join(BASE_FOLDER, ".temp")

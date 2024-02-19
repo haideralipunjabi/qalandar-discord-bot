@@ -1,0 +1,46 @@
+<html>
+  <style>
+    * {
+      font-size: 24px;
+    }
+    .table {
+      width: 100%;
+    }
+    .maincol {
+    }
+    .col {
+      outline: 1px solid black;
+      width: 20%;
+      padding: 5px;
+    }
+    .full {
+      width: 30%;
+    }
+    .row {
+      display: flex;
+      width: 100%;
+    }
+  </style>
+  <body>
+    <div class="table">
+    <div class="row">
+          <div class="col"><b>Date</b></div>
+          <div class="col"><b>Day</b></div>
+          <div class="col full"><b>Mason</b></div>
+          <div class="col full"><b>Carpenter</b></div>
+      </div>
+      {% for maincol in maincols %}
+      <div class="maincol">
+        {% for row in maincol %}
+        <div class="row">
+          <div class="col">{{ row[0] }}</div>
+          <div class="col">{{ row[1] }}</div>
+          <div class="col full"></div>
+          <div class="col full"></div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
