@@ -7,5 +7,5 @@ class Channels:
     TESTING = 1000382952015929434
 
 
-BASE_FOLDER = os.getcwd()
+BASE_FOLDER = os.path.dirname(os.path.realpath(__file__))
 TEMP_FOLDER = os.path.join(BASE_FOLDER, ".temp")
