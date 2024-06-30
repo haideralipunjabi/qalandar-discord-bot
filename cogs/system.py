@@ -10,6 +10,7 @@ import os
 from constants import TEMP_FOLDER, Channels
 from scripts.scanner import Scanner
 import logging
+import calendar
 
 
 def format_seconds(delta):
@@ -96,6 +97,33 @@ class SystemCog(commands.Cog):
         filepath = os.path.join(TEMP_FOLDER, filename)
         try:
             scanner.scanPDF(filepath, dpi)
+            await ctx.send(file=discord.File(filepath))
+        except Exception as e:
+            await ctx.send(f"An Error Occured: {e}")
+
+    @commands.command(help="Scan Receipt")
+    async def scanReceipt(self, ctx, month=None, year=None, name="receipt"):
+        now = dt.now()
+        if month and year:
+            try:
+                month = dt.strptime(month, "%B").month
+                year = dt.strptime(year, "%Y").year
+            except Exception as e:
+                await ctx.send(f"Exception: {e}")
+                return
+        if not month and not year:
+            month = now.month
+            year = now.year
+        if not month or not year:
+            await ctx.send("Provide both month and year")
+            return
+        month = calendar.month_name[month]
+        if not name.endswith(".pdf"):
+            name = name + ".pdf"
+        filepath = os.path.join(TEMP_FOLDER, name)
+        await ctx.send("Scanning PDF...")
+        try:
+            scanner.scanPDF(filepath, 300)
             await ctx.send(file=discord.File(filepath))
         except Exception as e:
             await ctx.send(f"An Error Occured: {e}")
