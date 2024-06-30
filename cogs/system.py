@@ -104,6 +104,10 @@ class SystemCog(commands.Cog):
     @commands.command(help="Scan Receipt")
     async def scanReceipt(self, ctx, month=None, year=None, name="receipt"):
         now = dt.now()
+        scanner = Scanner()
+        if not scanner.available:
+            await ctx.send("Scanner Offline")
+            return
         if month and year:
             try:
                 month = dt.strptime(month, "%B").month
