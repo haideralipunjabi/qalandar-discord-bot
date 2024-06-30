@@ -9,3 +9,4 @@ class Channels:
 
 BASE_FOLDER = os.path.dirname(os.path.realpath(__file__))
 TEMP_FOLDER = os.path.join(BASE_FOLDER, ".temp")
+RECEIPTS_PATH = "onedrive:Documents/Receipts"

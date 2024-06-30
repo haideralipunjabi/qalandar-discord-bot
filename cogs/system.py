@@ -7,7 +7,7 @@ import psutil
 from datetime import datetime as dt
 from datetime import timedelta as td
 import os
-from constants import TEMP_FOLDER, Channels
+from constants import TEMP_FOLDER, Channels, RECEIPTS_PATH
 from scripts.scanner import Scanner
 import logging
 import calendar
@@ -125,5 +125,7 @@ class SystemCog(commands.Cog):
         try:
             scanner.scanPDF(filepath, 300)
             await ctx.send(file=discord.File(filepath))
+            os.system(f"rclone mkdir {RECEIPTS_PATH}/{year}/{month}")
+            os.system(f"rclone copy {filepath} {RECEIPTS_PATH}/{year}/{month}/")
         except Exception as e:
             await ctx.send(f"An Error Occured: {e}")
