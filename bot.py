@@ -1,6 +1,6 @@
 import discord
 import os
-from discord.ext import commands
+from discord.ext import commands, tasks
 import cogs
 import click
 from constants import BASE_FOLDER, TEMP_FOLDER
@@ -14,6 +14,8 @@ if not token:
     logging.error("Discord Token not found!")
     exit()
 
+healthchecks_url = os.getenv("HEALTHCHECKS_ENDPOINT")
+
 logging.info(f"Base Folder: {BASE_FOLDER}")
 
 if not os.path.exists(TEMP_FOLDER):
@@ -25,6 +27,9 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+@tasks.loop(hours=1)
+async def ping_healthchecks():
+    os.system(f"curl {healthchecks_url} > /dev/null")
 
 @click.group
 def cli():
@@ -55,6 +60,11 @@ def run():
         await bot.add_cog(cogs.SystemCog(bot))
         await bot.add_cog(cogs.SocialCog(bot))
         await bot.add_cog(cogs.CalendarCog(bot))
+
+    @bot.event
+    async def on_ready():
+        await ping_healthchecks()
+        ping_healthchecks.start()
 
     bot.run(token)
 
