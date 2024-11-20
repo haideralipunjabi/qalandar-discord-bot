@@ -28,7 +28,7 @@ class Scanner:
         if os.path.isfile(filepath):
             os.system(f"rm {filepath}")
         os.system(
-            f'scanimage --device-name="{self.device_name}" --resolution={dpi} --mode=Color --format=pdf --scan-area=A4 -o {filepath}'
+            f'scanimage --device-name="{self.device_name}" --resolution={dpi} --mode=Color --format=pdf  -o {filepath}'
         )
 
     def available(self):
